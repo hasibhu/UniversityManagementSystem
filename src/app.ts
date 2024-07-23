@@ -11,6 +11,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send(a);
 });
 
-// console.log(process.cwd());
+
 
 export default app;
