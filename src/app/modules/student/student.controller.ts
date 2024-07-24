@@ -6,9 +6,9 @@ const createStudent = async (req: Request, res: Response) => {
     
 
     try {
-        const student = req.body.student;
+        const {student : studenData} = req.body;
 
-        const result = await StudentServices.createStudentIntoDB(student);
+        const result = await StudentServices.createStudentIntoDB(studenData);
 
         res.status(200).json({
             success: true,
@@ -20,7 +20,21 @@ const createStudent = async (req: Request, res: Response) => {
     }
 };
 
+const getAllStudents = async (req: Request, res: Response) => {
+    try {
+        const result = await StudentServices.getAllStudentsFromDB();
+        res.status(200).json({
+            success: true,
+            message: 'Students has been retrieved successfully.',
+            data: result
+        })
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export const StudentControllers = {
-    createStudent
+    createStudent,
+    getAllStudents
 }
