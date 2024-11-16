@@ -23,6 +23,10 @@ like- express, mongoose, cors, body-parser, dotenv,
 13. 
 
 ## interface > Schema > Model > DB Query
+#### IRCS 
+* Request hits route and then route calls controller, controller calls service, and service will handle buiness ligic.
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

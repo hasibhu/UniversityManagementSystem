@@ -1,15 +1,15 @@
-import { Student } from './student.interface';
+// import { Student } from './student.interface';
 import { Request, Response } from "express";
 import { StudentServices } from './student.service';
 
-const createStudent = async (req: Request, res: Response) => {
-    
 
+// create student API 
+const createStudent = async (req: Request, res: Response) => {
     try {
         const {student : studenData} = req.body;
-
         const result = await StudentServices.createStudentIntoDB(studenData);
 
+        // send response
         res.status(200).json({
             success: true,
             message: 'Student has been created successfully.',
@@ -20,6 +20,8 @@ const createStudent = async (req: Request, res: Response) => {
     }
 };
 
+
+// get all student api
 const getAllStudents = async (req: Request, res: Response) => {
     try {
         const result = await StudentServices.getAllStudentsFromDB();
@@ -28,11 +30,13 @@ const getAllStudents = async (req: Request, res: Response) => {
             message: 'Students have been retrieved successfully.',
             data: result
         })
-        
     } catch (error) {
         console.log(error);
     }
 }
+
+
+// single student api 
 
 const getSingleStudent = async (req: Request, res: Response) => {
     try {
@@ -42,13 +46,11 @@ const getSingleStudent = async (req: Request, res: Response) => {
             success: true,
             message: 'Single students has been retrieved successfully.',
             data: result
-        })
-        
+        })        
     } catch (error) {
         console.log(error);
     }
 }
-
 
 
 
