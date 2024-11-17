@@ -2,6 +2,8 @@ import { Schema, model } from 'mongoose';
 import { Guardian, Student, UserName, LocalGuardian } from './student/student.interface';
 import validator from 'validator';
 
+
+
 const userNameSchema = new Schema<UserName>(
     {
         firstName: { type: String, required: true },
@@ -29,6 +31,7 @@ const localGuardianSchema = new Schema<LocalGuardian>({
 
 
 const studentSchema = new Schema<Student>({
+    
     id: {
         type: String,
         required: true,
@@ -63,6 +66,7 @@ const studentSchema = new Schema<Student>({
         required: true
     },
 
+
     localGuardian: {
         type: localGuardianSchema,
         required:true
@@ -83,7 +87,7 @@ const studentSchema = new Schema<Student>({
 
 // model part starts here
 
-const StudentModel = model<Student>("Student", studentSchema, );
+const StudentModel = model<Student>("Student", studentSchema);
 
 export default StudentModel;
 
