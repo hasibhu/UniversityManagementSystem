@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Guardian, Student, UserName, LocalGuardian } from './student/student.interface';
+import { Guardian, Student, UserName, LocalGuardian } from './student.interface';
 import validator from 'validator';
 
 
