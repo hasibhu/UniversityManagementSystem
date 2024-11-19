@@ -34,12 +34,12 @@ const manSchema = new Schema<Man>({
     },
     email: {
         type: String,
-        required: true,
-        validate: {
-            validator: (value: string) => validator.isEmail(value),
-            message: "{VALUE} is not a valid email type "
+        // required: true,
+        // validate: {
+        //     validator: (value: string) => validator.isEmail(value),
+        //     message: "{VALUE} is not a valid email type "
                 
-        }
+        // }
     }
 
 })
