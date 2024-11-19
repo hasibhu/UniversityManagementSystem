@@ -27,6 +27,10 @@ import { Car } from "./car.interface";
     type: {
         type: String,
         required: true
+     },
+     email: {
+         type: String,
+         required: true
     }
 
 })

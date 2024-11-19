@@ -7,6 +7,7 @@ export type Car = {
     year: number;
     color: string;
     origin: string;
-    type: string
+    type: string;
+    email: string
 
 }
