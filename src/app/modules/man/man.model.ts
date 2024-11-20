@@ -1,12 +1,18 @@
 import { Schema, model } from "mongoose";
-import { Man } from "./man.interface";
+import { Man, manMethods, manModelInInterface } from "./man.interface";
 
 import validator from "validator";
 
 
 
 
-const manSchema = new Schema<Man>({
+// const manSchema = new Schema<Man>({
+const manSchema = new Schema<Man, manModelInInterface, manMethods>({
+    id: {
+        type: String,
+        required: true,
+        unique: true
+    },
     name: {
         type: String,
         trim: true,  //to remove unnecessary spaces
@@ -44,5 +50,14 @@ const manSchema = new Schema<Man>({
 
 })
 
-const manModel = model<Man>("Man", manSchema)
+
+manSchema.methods.isUserExists = async function(id: string) {
+    const existingMan = await manModel.findOne({ id })
+    
+    return existingMan;
+}
+
+
+
+const manModel = model<Man, manModelInInterface>("Man", manSchema)  /// this has been written as Student in the lecture 
 export default manModel;

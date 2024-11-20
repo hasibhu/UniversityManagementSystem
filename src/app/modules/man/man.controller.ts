@@ -14,6 +14,7 @@ export const createMan = async (req: Request, res: Response) => {
         // creating a schema for validating with Joi 
 
         const JoiValidtionSchema = Joi.object({
+            id: Joi.string().required(),
             name: Joi.string().required().max(20),
             degree: Joi.string().required(),
             job: Joi.string(),

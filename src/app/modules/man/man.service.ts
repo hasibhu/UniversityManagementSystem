@@ -3,15 +3,22 @@ import manModel from "./man.model"
 
 
 export const manService = async (manData: Man) => {
-    // const result = await manModel.create(manData) // this is a built in static method
+    // this is a built in static method
+    // const result = await manModel.create(manData)
 
+    
     // alternative
+    //this is a built in instance method
+    const resultInstance = new manModel(manData) //create an instance
+    // console.log('data from service', resultInstance);
 
-    const resultInstance = new manModel(manData)
+    if (await resultInstance.isUserExists(manData.id)) {
+        throw new Error('User already exists.')
+    }
 
-    const result = await resultInstance.save(); //this is a built in instance method
-
-
+    const result = await resultInstance.save();
 
     return result;
-}
+};
+
+
