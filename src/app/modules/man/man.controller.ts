@@ -25,9 +25,9 @@ export const createMan = async (req: Request, res: Response) => {
 
         const manData = req.body;
 
-        const {error, value } = JoiValidtionSchema.validate(manData)
+        const { error, value } = JoiValidtionSchema.validate(manData)
 
-        console.log(error, value);
+        // console.log(error, value);
 
         if (error) {
             // Return validation error to client
@@ -47,7 +47,13 @@ export const createMan = async (req: Request, res: Response) => {
             message: 'Man data has been created successfully.',
             data: result
         })
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        // Handle the error thrown by the service
+        if (error.message === "User already exists.") {
+            return res.status(409).json({
+                success: false,
+                message: error.message, // Send the specific error message to the client
+            });
+        }
     }
 }
