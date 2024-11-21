@@ -12,9 +12,14 @@ export const manService = async (manData: Man) => {
     const resultInstance = new manModel(manData) //create an instance
     // console.log('data from service', resultInstance);
 
+    // application of the customised instance starts here 
+
     if (await resultInstance.isUserExists(manData.id)) {
         throw new Error('User already exists.')
     }
+    //application of the customised instance ends here 
+
+    
 
     const result = await resultInstance.save();
 

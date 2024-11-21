@@ -5,8 +5,10 @@ import validator from "validator";
 
 
 
-
+// before instance 
 // const manSchema = new Schema<Man>({
+    
+    // applying instance 
 const manSchema = new Schema<Man, manModelInInterface, manMethods>({
     id: {
         type: String,

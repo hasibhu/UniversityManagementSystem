@@ -1,9 +1,14 @@
 import { Schema, model } from "mongoose";
-import { Car } from "./car.interface";
+import { Car, CarInterfaceModel,  } from "./car.interface";
 
 
 
- const carSchema = new Schema<Car>({
+const carSchema = new Schema<Car, CarInterfaceModel>({
+    id: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     brand: {
         type: String,
         required: true
@@ -27,15 +32,30 @@ import { Car } from "./car.interface";
     type: {
         type: String,
         required: true
-     },
-     email: {
-         type: String,
-         required: true
+    },
+    email: {
+        type: String,
+        required: true
     }
 
-})
+});
 
 
-const carModel = model<Car>("Car", carSchema);
+// creating customized static method
+
+
+
+carSchema.statics.isCarExists = async function (id: string) {
+    console.log('Checking if car exists with ID:', id);
+    const existingCar = await this.findOne({ id });
+    return existingCar;
+}
+
+const carModel = model<Car, CarInterfaceModel>("Car", carSchema);
+
+
+
+
+// const carModel = model<Car>("Car", carSchema);
 
 export default carModel;
