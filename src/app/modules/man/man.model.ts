@@ -59,6 +59,13 @@ manSchema.methods.isUserExists = async function(id: string) {
     return existingMan;
 }
 
+// The Resolution: Referencing this
+// To avoid potential issues, you can rewrite the method to use this.constructor, which refers to the model tied to the schema:
+
+// manSchema.methods.isUserExists = async function (id: string) {
+//     const existingMan = await this.constructor.findOne({ id }); // Use `this.constructor`
+//     return existingMan;
+// };
 
 
 const manModel = model<Man, manModelInInterface>("Man", manSchema)  /// this has been written as Student in the lecture 
