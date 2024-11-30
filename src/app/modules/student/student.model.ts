@@ -147,11 +147,17 @@ const studentSchema = new Schema<TStudent, StudentModel>(
 );
 
 
-// Pre save middle/ hook 
-
-studentSchema.pre('save', function (next) {
+// Pre save middle/ hook will work on saving data in db
+studentSchema.pre('save', function () {
   console.log(this, 'Pre hook: we will save the data.');
+});
+
+// Post save middle/ hook 
+studentSchema.post('save', function () {
+  console.log(this, 'Pre hook: we have saved the data.');
 })
+
+
 
 
 

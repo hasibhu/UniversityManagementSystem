@@ -3,6 +3,12 @@ import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { StudentServices } from './student.service';
 
+
+
+
+
+
+
 const getSingleStudent = async (
   req: Request,
   res: Response,
