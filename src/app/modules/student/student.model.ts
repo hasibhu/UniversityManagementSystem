@@ -146,6 +146,15 @@ const studentSchema = new Schema<TStudent, StudentModel>(
   },
 );
 
+
+// Pre save middle/ hook 
+
+studentSchema.pre('save', function (next) {
+  console.log(this, 'Pre hook: we will save the data.');
+})
+
+
+
 // virtual
 studentSchema.virtual('fullName').get(function () {
   return this.name.firstName + this.name.middleName + this.name.lastName;
