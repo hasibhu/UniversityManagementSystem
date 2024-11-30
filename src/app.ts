@@ -1,7 +1,7 @@
 
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { StudentRoutes } from './app/modules/student/student.route';
+import { StudentRoutes } from './app/modules/students/student.route';
 import { ManRoutes } from './app/modules/man/man.route';
 import { CarRoutes } from './app/modules/car/car.route';
 const app: Application = express();

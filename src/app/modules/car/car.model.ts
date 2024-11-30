@@ -43,10 +43,8 @@ const carSchema = new Schema<Car, CarInterfaceModel>({
 
 // creating customized static method
 
-
-
 carSchema.statics.isCarExists = async function (id: string) {
-    console.log('Checking if car exists with ID:', id);
+    // console.log('Checking if car exists with ID:', id);
     const existingCar = await this.findOne({ id });
     return existingCar;
 }
