@@ -23,7 +23,7 @@ const createStudent = async (req: Request, res: Response, next: NextFunction) =>
       data: result,
     });
   } catch (err) {
-    next(err);
+    next(err); //next will carry the error in the globar error handler  file 
   }
 };
 

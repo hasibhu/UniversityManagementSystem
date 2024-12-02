@@ -5,6 +5,7 @@ import { StudentRoutes } from './app/modules/student/student.route';
 import { ManRoutes } from './app/modules/man/man.route';
 import { CarRoutes } from './app/modules/car/car.route';
 import { UserRoutes } from './app/modules/user/user.route';
+import globalErrorHandle from './app/middleware/globalErrorHandler';
 const app: Application = express();
 
 app.use(express.json());
@@ -32,17 +33,7 @@ app.get('/', getAController);
 
 // error handler 
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) =>
-{
-  const statusCode = 5000;
-  const message = 'Something went wrong';
-
-  return res.status(statusCode).json({
-    success: false,
-    message,
-    error: err
-  })
-})
+app.use(globalErrorHandle) // not call jsu use 
 
 
 
