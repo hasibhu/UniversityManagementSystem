@@ -1,5 +1,11 @@
 import { Student } from './student.model';
 
+
+
+// student create api has been transferred in user service 
+
+
+
 const getAllStudentsFromDB = async () => {
   const result = await Student.find();
   return result;

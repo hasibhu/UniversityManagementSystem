@@ -6,7 +6,7 @@ import { StudentServices } from './student.service';
 
 
 
-
+// api has been transferred in user controller
 
 
 const getSingleStudent = async (
