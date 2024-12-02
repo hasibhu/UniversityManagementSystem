@@ -6,6 +6,7 @@ import { ManRoutes } from './app/modules/man/man.route';
 import { CarRoutes } from './app/modules/car/car.route';
 import { UserRoutes } from './app/modules/user/user.route';
 import globalErrorHandle from './app/middleware/globalErrorHandler';
+import notfound from './app/middleware/notFound';
 const app: Application = express();
 
 app.use(express.json());
@@ -33,8 +34,12 @@ app.get('/', getAController);
 
 // error handler 
 
-app.use(globalErrorHandle) // not call jsu use 
+app.use(globalErrorHandle) // not call, just use 
 
+
+//not route found error handler
+
+app.use(notfound)
 
 
 
