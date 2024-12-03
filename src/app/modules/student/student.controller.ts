@@ -13,7 +13,7 @@ const catchAsync = (fn: RequestHandler ) => {
 // api has been transferred in user controller
 
 
-const getSingleStudent : RequestHandler = catchAsync( async (req, res, next) => {
+const getSingleStudent  = catchAsync( async (req, res, next) => {
 
     const { studentId } = req.params;
     const result = await StudentServices.getSingleStudentFromDB(studentId);
@@ -27,8 +27,8 @@ const getSingleStudent : RequestHandler = catchAsync( async (req, res, next) => 
   } 
 );
 
-const getAllStudents : RequestHandler = async (req, res, next) => {
-  try {
+const getAllStudents  = catchAsync(async (req, res, next) => {
+ 
     const result = await StudentServices.getAllStudentsFromDB();
 
     sendResponse(res, {
@@ -37,13 +37,10 @@ const getAllStudents : RequestHandler = async (req, res, next) => {
       message: 'Student are retrieved succesfully',
       data: result,
     });
-  } catch (err) {
-    next(err);
-  }
-};
+  });
 
-const deleteStudent : RequestHandler = async (req, res, next) => {
-  try {
+const deleteStudent  = catchAsync ( async (req, res, next) => {
+
     const { studentId } = req.params;
     const result = await StudentServices.deleteStudentFromDB(studentId);
 
@@ -53,10 +50,7 @@ const deleteStudent : RequestHandler = async (req, res, next) => {
       message: 'Student is deleted succesfully',
       data: result,
     });
-  } catch (err) {
-    next(err);
-  }
-};
+  } );
 
 export const StudentControllers = {
   getAllStudents,
