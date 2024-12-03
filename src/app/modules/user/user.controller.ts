@@ -12,7 +12,7 @@ import catchAsync from '../../utils/catchAsysnc';
 
 // RequestHandler of express will wrok fpr type declaration of the res, req, and next. 
 
-const createStudent  = catchAsync( async (req, res, next) => {
+const createStudent  = catchAsync( async (req, res) => {
 
  
     const { password, student: studentData } = req.body;

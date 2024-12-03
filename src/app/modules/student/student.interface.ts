@@ -41,6 +41,8 @@ export type TStudent = {
   isDeleted: boolean;
 };
 
+
+
 //for creating static
 
 export interface StudentModel extends Model<TStudent> {
