@@ -1,14 +1,11 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+
 import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { StudentServices } from './student.service';
+import catchAsync from '../../utils/catchAsysnc';
 
 
-const catchAsync = (fn: RequestHandler ) => {
-  return (req:Request, res:Response, next:NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err))
-  }
-}
+
 
 // api has been transferred in user controller
 
@@ -37,7 +34,8 @@ const getAllStudents  = catchAsync(async (req, res, next) => {
       message: 'Student are retrieved succesfully',
       data: result,
     });
-  });
+});
+  
 
 const deleteStudent  = catchAsync ( async (req, res, next) => {
 
@@ -50,7 +48,8 @@ const deleteStudent  = catchAsync ( async (req, res, next) => {
       message: 'Student is deleted succesfully',
       data: result,
     });
-  } );
+}
+);
 
 export const StudentControllers = {
   getAllStudents,
