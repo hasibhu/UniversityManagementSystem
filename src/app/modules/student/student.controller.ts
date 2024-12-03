@@ -1,16 +1,20 @@
-import { RequestHandler } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { StudentServices } from './student.service';
 
 
-
+const catchAsync = (fn: RequestHandler ) => {
+  return (req:Request, res:Response, next:NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch((err) => next(err))
+  }
+}
 
 // api has been transferred in user controller
 
 
-const getSingleStudent : RequestHandler = async (req, res, next) => {
-  try {
+const getSingleStudent : RequestHandler = catchAsync( async (req, res, next) => {
+
     const { studentId } = req.params;
     const result = await StudentServices.getSingleStudentFromDB(studentId);
 
@@ -20,10 +24,8 @@ const getSingleStudent : RequestHandler = async (req, res, next) => {
       message: 'Student is retrieved succesfully',
       data: result,
     });
-  } catch (err) {
-    next(err);
-  }
-};
+  } 
+);
 
 const getAllStudents : RequestHandler = async (req, res, next) => {
   try {
