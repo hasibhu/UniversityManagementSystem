@@ -1,19 +1,11 @@
 import { TAcademicSemester } from "./academicSemester.interface";
 import { AcademicSemesterModel } from "./academicSemester.model";
+import { academisSemesterAndCodeMapper } from "./academicSemesterConstant";
 
 
 const createAcademicSemesterIntoDB = async (payload: TAcademicSemester) => {
     
-    //semester name and semseter code check 
-    type TAcademisSemesterAndCodeMapper = {
-        [key: string]: string
-    }
-    const academisSemesterAndCodeMapper : TAcademisSemesterAndCodeMapper = {
-        Autumn: "01",
-        Summer: "02",
-        Fall: "03"
-    }
-    
+    //semester name and semseter code check   
     if (academisSemesterAndCodeMapper[payload.name] !== payload.code) {
         throw new Error('Invalid academic code.')
     }
