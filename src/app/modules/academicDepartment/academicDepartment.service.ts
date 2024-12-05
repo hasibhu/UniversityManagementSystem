@@ -3,7 +3,7 @@ import { AcademicDepartmentModel } from "./academicDepartment.model";
 
 
 
-
+// create department 
 const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
 
   // blocking double entry of any department after the unique validation in the validation schema 
@@ -20,20 +20,24 @@ const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
 };
 
 
+
+// get all departments 
 const getAllAcademicDepartmentsFromDB = async () => {
-  const result = await AcademicDepartmentModel.find();
+  const result = await AcademicDepartmentModel.find().populate("academicFaculty"); //name of the schema property from model 
   return result;
 };
 
 
 
+// get single department
 const getSingleAcademicDepartmentFromDB = async (id: string) => {
-  const result = await AcademicDepartmentModel.findById(id);
+  const result = await AcademicDepartmentModel.findById(id).populate("academicFaculty");
   return result;
 };
 
 
 
+// update department
 const updateAcademicDepartmentIntoDB = async (id: string, payload: Partial<TAcademicDepartment>) => {
   const result = await AcademicDepartmentModel.findOneAndUpdate({ _id: id }, payload, {new: true});
   return result;
