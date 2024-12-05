@@ -26,7 +26,7 @@ export const generateStudentId = async (payload: TAcademicSemester) => {
     
   // first time 0000
   //0001  => 1
-  const currentId = (await findLastStudentId()) || (0).toString();
+  const currentId =  (0).toString();
 
   let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
 
