@@ -42,6 +42,10 @@ const academicSemesterSchema = new Schema<TAcademicSemester>(
 
     },
     
+    {
+    timestamps: true,
+    },
+    
     
 )
 

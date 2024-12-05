@@ -6,6 +6,7 @@ import {
   TStudent,
   TUserName,
 } from './student.interface';
+import { ref } from 'joi';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -134,6 +135,10 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'Local guardian information is required'],
     },
     profileImg: { type: String },
+    admissionSemester: {
+      type: Schema.Types.ObjectId,
+      ref: "AcademicSemester"
+    },
     isDeleted: {
       type: Boolean,
       default: false,
