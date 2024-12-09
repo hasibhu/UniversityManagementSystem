@@ -73,8 +73,6 @@ const updateStudentIntomDB = async (id: string, payload: Partial<TStudent>) => {
           }
         }
 
-
-
         console.log(modifiedUpdatedData);
 
 

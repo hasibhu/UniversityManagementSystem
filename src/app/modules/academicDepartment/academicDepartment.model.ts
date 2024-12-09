@@ -12,7 +12,7 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
             required: true,
             unique: true
         },
-        academicFaulty: {
+        academicFaculty: {
             type: Schema.Types.ObjectId,
             required: true,
             unique: true,
