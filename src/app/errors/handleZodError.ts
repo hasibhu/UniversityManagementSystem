@@ -1,24 +1,26 @@
-import { ZodError } from "zod";
+import { ZodError, ZodIssue } from "zod";
 import { TErrorSource } from "../interface/error.interface";
 
-
-
-   const handleZodError = (err: ZodError) => {
-    const errorSources: TErrorSource = err.issues.map((issue) => {
-        return {
-            path: issue?.path[issue.path.length - 1],
-            message: issue?.message,
-        }
-    });
-
-    const statusCode = 400;
-
-    return {
-      statusCode,
-      message: 'Common validation error.',
-      errorSources,
-    };
-   };
   
+
+const handleZodError = (err: ZodError) => {
+     
+     const errorSources : TErrorSource = err.issues.map((issue: ZodIssue) => {
+       
+       return {
+         path: issue?.path[issue?.path?.length - 1],
+         message: issue?.message
+       }
+     })
+
+     const statusCode = 400;
+     
+     return { // this return values will be bundled in the simplifiedError variable below in the err instance 
+       statusCode,
+       message: 'Common validation error created by us in handleZodError function',
+       errorSources
+     }
+     
+   }
 
 export default handleZodError;
