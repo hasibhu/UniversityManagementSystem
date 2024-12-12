@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { TAcademicDepartment } from "./academicDepartment.interface";
 import { AcademicDepartmentModel } from "./academicDepartment.model";
 
@@ -7,13 +8,13 @@ import { AcademicDepartmentModel } from "./academicDepartment.model";
 const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
 
   // blocking double entry of any department after the unique validation in the validation schema 
-  const isDepartmentExist = await AcademicDepartmentModel.findOne({
-    name: payload.name
-  })
+  // const isDepartmentExist = await AcademicDepartmentModel.findOne({
+  //   name: payload.name
+  // })
 
-  if (isDepartmentExist) {
-    throw new Error("The given department is already available in the database.")
-  }
+  // if (isDepartmentExist) {
+  //   throw new Error("The given department is already available in the database.")
+  // }
 
   const result = await AcademicDepartmentModel.create(payload);
   return result;

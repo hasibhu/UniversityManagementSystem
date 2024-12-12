@@ -15,9 +15,9 @@ const router = express.Router();
 
 router.post(
   '/create-academic-department',
-  validateRequest(
-    AcademicDepartmentValidation.createAcademicDepartmentValidationSchema,
-  ),
+  // validateRequest(
+  //   AcademicDepartmentValidation.createAcademicDepartmentValidationSchema,
+  // ),
   AcademicDepartmentControllers.createAcademicDepartment,
 );
 
@@ -29,8 +29,9 @@ router.get('/', AcademicDepartmentControllers.getAllAcademicDepartments);
 
 
 
-// get single faculty bu id 
+// get single faculty by id 
 router.get('/:departmentId', AcademicDepartmentControllers.getSingleAcademicDepartment);
+
 
 
 // update faculty info 

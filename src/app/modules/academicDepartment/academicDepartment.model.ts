@@ -4,32 +4,24 @@ import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 
 
-
 const academicDepartmentSchema = new Schema<TAcademicDepartment>(
     {
         name: {
             type: String,
             required: true,
-            unique: true
+            unique: true, // Ensure only department names are unique
         },
         academicFaculty: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            unique: true,
-            ref: "AcademiFaculty"
+          type: Schema.Types.ObjectId,
+          unique: true,
+          required: true,
+          ref: "AcademicFaculty", // Allow multiple departments under the same faculty
         },
     },
     {
         timestamps: true,
     }
-)
-
-
-
-
-
-
-
+);
 
 
 
