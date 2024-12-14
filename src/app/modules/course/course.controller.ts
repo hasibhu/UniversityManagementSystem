@@ -5,7 +5,7 @@ import { courseServices } from "./course.service";
 
 
 
-
+// create course 
 const createCourse = catchAsync(async (req, res) => {
 
     const result = await courseServices.createCourseInDB(req.body)
@@ -19,8 +19,10 @@ const createCourse = catchAsync(async (req, res) => {
 
 });
 
+
+// get all courses 
 const getAllCourses = catchAsync(async (req, res) => {
-     const result = await courseServices.getAllCoursesFromDB();
+     const result = await courseServices.getAllCoursesFromDB(req.query);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -31,6 +33,7 @@ const getAllCourses = catchAsync(async (req, res) => {
 })
 
 
+// get a single course 
 const getSingleCourse = catchAsync(async (req, res) => {
     
      const { courseId } = req.params;
@@ -47,7 +50,7 @@ const getSingleCourse = catchAsync(async (req, res) => {
 )
 
 
-
+// delete a Course 
 const deleteCourse = catchAsync(async (req, res) => {
     
      const { courseId } = req.params;
