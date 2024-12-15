@@ -36,13 +36,15 @@ const getAllCourses = catchAsync(async (req, res) => {
 // get a single course 
 const getSingleCourse = catchAsync(async (req, res) => {
     
-     const { courseId } = req.params;
-    const result = await courseServices.getSingleCourseFromDB(courseId);
+    const { id } = req.params;
+   
+    const result = await courseServices.getSingleCourseFromDB(id);
 
+   
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: "All Courses have been retrieved successfully",
+        message: "Single course been retrieved successfully",
         data: result
     })
 }
@@ -53,8 +55,9 @@ const getSingleCourse = catchAsync(async (req, res) => {
 // delete a Course 
 const deleteCourse = catchAsync(async (req, res) => {
     
-     const { courseId } = req.params;
-    const result = await courseServices.deleteCourseFromDB(courseId);
+    const { id } = req.params;
+    console.log(id);
+    const result = await courseServices.deleteCourseFromDB(id);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

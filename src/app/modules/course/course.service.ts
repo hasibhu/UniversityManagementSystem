@@ -29,7 +29,7 @@ const getAllCoursesFromDB = async (query: Record<string, unknown>) => {
 const getSingleCourseFromDB = async (id : string) => {
     
 
-    const result = await CourseModel.findById(id)
+    const result = await CourseModel.findById(id).populate('preRequisiteCourses.course')
     
     return result;
 }
@@ -40,9 +40,8 @@ const getSingleCourseFromDB = async (id : string) => {
 
 const deleteCourseFromDB = async (id : string) => {
     
-
-    const result = await CourseModel.findByIdAndUpdate(id, {isDelete: true}, {new: true})
-    
+    const result = await CourseModel.findByIdAndUpdate(id, {isDeleted: true}, {new: true})
+   
     return result;
 }
 
