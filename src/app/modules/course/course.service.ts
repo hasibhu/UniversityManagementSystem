@@ -1,16 +1,15 @@
 import mongoose from "mongoose";
 import QueryBuilder from "../../builder/QueryBuilder";
-import catchAsync from "../../utils/catchAsysnc";
 import { CourseSearchableFileds } from "./course.constants";
-import { TCourse } from "./course.interface";
-import { CourseModel } from "./course.model"
+import { TAssignCourseFaculties, TCourse } from "./course.interface";
+import { AssigneCourseFacultyModel, CourseModel } from "./course.model"
 import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 
 
 
 
-
+// create course in db 
 const createCourseInDB = async (payload: TCourse) => {
     
 
@@ -19,7 +18,7 @@ const createCourseInDB = async (payload: TCourse) => {
     return result;
 }
 
-
+// get all coureser from db 
 const getAllCoursesFromDB = async (query: Record<string, unknown>) => {
     
     const courseQuery = new QueryBuilder(CourseModel.find().populate('preRequisiteCourses.course'), query).search(CourseSearchableFileds).filter().sort().paginate().fields()
@@ -29,7 +28,7 @@ const getAllCoursesFromDB = async (query: Record<string, unknown>) => {
     return result;
 }
 
-
+// get single course from db 
 const getSingleCourseFromDB = async (id : string) => {
     
 
@@ -39,7 +38,7 @@ const getSingleCourseFromDB = async (id : string) => {
 }
 
 
-
+// update course into db 
 const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
 
   
@@ -139,7 +138,7 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
 }
 
 
-
+// delete course from db 
 const deleteCourseFromDB = async (id : string) => {
     
     const result = await CourseModel.findByIdAndUpdate(id, {isDeleted: true}, {new: true})
@@ -148,6 +147,42 @@ const deleteCourseFromDB = async (id : string) => {
 }
 
 
+// set faculties in course 
+const assignFacultiesWithCourseIntoDB = async (courseId: string, payload: Partial<TAssignCourseFaculties>) => {
+    
+    const result = await AssigneCourseFacultyModel.findByIdAndUpdate(
+        courseId,
+        {
+            course: courseId,
+            $addToSet: {faculties: {$each : payload}}
+        },
+        {
+            upsert: true,
+            new: true
+        }
+    )
+
+    return result; 
+}
+
+
+// remove faculties from course 
+const removeFacultiesFromCourseIntoDB = async (courseId: string, payload: Partial<TAssignCourseFaculties>) => {
+    
+    const result = await AssigneCourseFacultyModel.findByIdAndUpdate(
+        courseId,
+        {
+            course: courseId,
+            $pull: {faculties: {$in : payload}}
+        },
+        {
+       
+            new: true
+        }
+    )
+
+    return result; 
+}
 
 
 
@@ -156,7 +191,9 @@ export const courseServices = {
     getAllCoursesFromDB,
     getSingleCourseFromDB,
     updateCourseIntoDB,
-    deleteCourseFromDB
+    deleteCourseFromDB,
+    assignFacultiesWithCourseIntoDB,
+    removeFacultiesFromCourseIntoDB
 
 
 }

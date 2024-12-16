@@ -7,11 +7,17 @@ export type TPreRequiteCourse = {
 }
 
 
-export type TCourse= {
+export type TCourse = {
     title: string;
     prefix: string;
     code: number;
     credits: number;
     preRequisiteCourses: [TPreRequiteCourse];
     isDeleted?: string
+};
+
+
+export type TAssignCourseFaculties = {
+    course: Types.ObjectId;
+    faculties: [Types.ObjectId];
 }

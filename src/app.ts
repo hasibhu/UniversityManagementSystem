@@ -8,6 +8,7 @@ import { CarRoutes } from './app/modules/car/car.route';
 import globalErrorHandle from './app/middleware/globalErrorHandler';
 import notfound from './app/middleware/notFound';
 import router from './app/routes';
+import { AdminRoutes } from './app/modules/Admin/admin.route';
 
 
 
@@ -19,6 +20,9 @@ app.use(cors());
 
 // application routes
 app.use('/app/v1/', router)
+
+
+
 
 app.use('/app/v1/man', ManRoutes)
 app.use('/app/v1/car', CarRoutes)
