@@ -47,16 +47,39 @@ const getSingleCourse = catchAsync(async (req, res) => {
         message: "Single course been retrieved successfully",
         data: result
     })
-}
+})
 
-)
+
+
+
+const updateCourse = catchAsync(async (req, res) => {
+    const { id } = req.params; // Match the route parameter
+    // console.log("Course ID:", id);
+
+    const result = await courseServices.updateCourseIntoDB(id, req.body);
+
+    // console.log("Update result:", result);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Course has been updated successfully",
+        data: result,
+    });
+});
+
+
+
+
+
+
 
 
 // delete a Course 
 const deleteCourse = catchAsync(async (req, res) => {
     
     const { id } = req.params;
-    console.log(id);
+    // console.log(id);
     const result = await courseServices.deleteCourseFromDB(id);
 
     sendResponse(res, {
@@ -71,14 +94,11 @@ const deleteCourse = catchAsync(async (req, res) => {
 
 
 
-
-
-
-
 export const courseControllers = {
     createCourse,
     getAllCourses,
     getSingleCourse,
+    updateCourse,
     deleteCourse
 
 }
