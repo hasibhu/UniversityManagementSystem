@@ -2,6 +2,8 @@ import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import config from '../../config';
 import { TUser, UserModel } from './user.interface';
+import AppError from '../../errors/AppError';
+import httpStatus from 'http-status';
 
 
 const userSchema = new Schema<TUser, UserModel>(  //
@@ -54,6 +56,43 @@ userSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
+
+
+
+// statics for checking  if user is available before statics
+userSchema.statics.isUserExistByCustomId = async function (id: string) {
+  return await User.findOne({id})
+}
+
+
+// Static method: Check if user is deleted
+// Static method: Check if user is deleted or blocked by ID
+userSchema.statics.isUserAccessibleById = async function (id: string) {
+  const user = await this.findOne({ id });
+
+
+
+  // Check if the user is deleted
+  if (user?.isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, "User is deleted already!!");
+  }
+
+  // Check if the user is blocked
+  if (user?.status === 'blocked') {
+    throw new AppError(httpStatus.FORBIDDEN, "User is blocked!!");
+  }
+
+  return user; // Return user if accessible
+};
+
+
+userSchema.statics.isPasswordMatched = async function (plainTextPassword, hashedPassword) {
+  return await bcrypt.compare(plainTextPassword, hashedPassword)
+
+}
+
+
+
 
 // before static 
 // export const User = model<TUser>('User', userSchema);

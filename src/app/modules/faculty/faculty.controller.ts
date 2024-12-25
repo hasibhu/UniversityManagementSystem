@@ -4,7 +4,9 @@ import { FacultyServices } from './faculty.service';
 import catchAsync from '../../utils/catchAsysnc';
 
 const getSingleFaculty = catchAsync(async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params; //it's coming from auth.validationMiddleware 
+
+  
   const result = await FacultyServices.getSingleFacultyFromDB( id );
 
   sendResponse(res, {
@@ -16,6 +18,8 @@ const getSingleFaculty = catchAsync(async (req, res) => {
 });
 
 const getAllFaculties = catchAsync(async (req, res) => {
+
+  console.log('text', req.user);
   const result = await FacultyServices.getAllFacultiesFromDB(req.query);
 
   sendResponse(res, {

@@ -13,6 +13,7 @@
 // };
 
 import { Model } from "mongoose";
+import { USER_ROLE } from "./user.constants";
 
 
 
@@ -29,5 +30,11 @@ export interface TUser {
 
 
 export interface UserModel extends Model<TUser>{
-   isUserExistByCustomId(id:string) : Promise<TUser>
+  isUserExistByCustomId(id: string): Promise<TUser>;
+  isUserAccessibleById(id: string): Promise<TUser>;
+  isPasswordMatched(plainTextPassword:string, hashedPassword :string): Promise<boolean>
 } 
+
+
+
+export type TUserRole = keyof typeof USER_ROLE;
