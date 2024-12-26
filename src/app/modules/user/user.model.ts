@@ -16,10 +16,14 @@ const userSchema = new Schema<TUser, UserModel>(  //
     password: {
       type: String,
       required: true,
+      select:0 //will not retrieve user password in 
     },
     needsPasswordChange: {
       type: Boolean,
       default: true,
+    },
+    passwordChangedAt: {
+      type: Date
     },
     role: {
       type: String,
@@ -61,7 +65,8 @@ userSchema.post('save', function (doc, next) {
 
 // statics for checking  if user is available before statics
 userSchema.statics.isUserExistByCustomId = async function (id: string) {
-  return await User.findOne({id})
+  // return await User.findOne({id}).select('password') //will provide only user id and hashed password
+  return await User.findOne({id}).select('+password') // will provide all user info.
 }
 
 
