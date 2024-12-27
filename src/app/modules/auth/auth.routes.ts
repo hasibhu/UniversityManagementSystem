@@ -33,4 +33,11 @@ router.post('/forget-password',
     AuthControllers.forgetPassword)
 
 
+//   reset password   
+router.post('/reset-password',
+    // authValidationMidddleware(USER_ROLE.admin, USER_ROLE.faculty, USER_ROLE.student ),
+    validateRequest(AuthValidation.forgetPasswordValidation),
+    AuthControllers.resetPassword)
+
+
 export const AuthRoutes = router;

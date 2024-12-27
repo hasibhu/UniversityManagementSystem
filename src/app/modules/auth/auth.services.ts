@@ -7,6 +7,7 @@ import jwt, { JwtPayload }  from "jsonwebtoken";
 import config from "../../config";
 import bcrypt from 'bcrypt'
 import { createToken } from "./auth.utils";
+import { sendEmail } from "../../utils/sendEmail";
 
 const loginUserService = async (payload: TLoginUser) => {
     
@@ -226,11 +227,37 @@ const forgetPassword = async(userId: string) => {
     )
 
 
-     const resetUrlLink = `http://localhost:8000?id=${user.id}&token=${resetToken}`
+     const resetUrlLink = `${config.reset_password_url_link}?id=${user.id}&token=${resetToken}`
     
+    
+    sendEmail(user.email, resetUrlLink)
+
+
     console.log(resetUrlLink);
 
     // return resetUrlLink
+}
+
+
+
+
+
+const resetPassword = async(payload: {id: string, newPassword: string}, token) => {
+    
+
+     // check if the user exists 
+    const user = await User.isUserExistByCustomId(payload.id)
+    
+      if (!user) {
+        throw new AppError(httpStatus.NOT_FOUND,"User not found");
+      }
+
+      // check user status/ block /delete
+      await User.isUserAccessibleById(payload.id);
+      
+    
+    
+    
 }
 
 
@@ -238,7 +265,8 @@ export const AuthServices = {
     loginUserService,
     changePasswordService,
     refreshToken,
-    forgetPassword
+    forgetPassword,
+    resetPassword
 
 
 }
