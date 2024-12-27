@@ -1,6 +1,7 @@
 
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import { ManRoutes } from './app/modules/man/man.route';
 import { CarRoutes } from './app/modules/car/car.route';
@@ -8,14 +9,17 @@ import { CarRoutes } from './app/modules/car/car.route';
 import globalErrorHandle from './app/middleware/globalErrorHandler';
 import notfound from './app/middleware/notFound';
 import router from './app/routes';
-import { AdminRoutes } from './app/modules/Admin/admin.route';
+
 
 
 
 const app: Application = express();
 
 app.use(express.json());
-app.use(cors());
+
+app.use(cookieParser()) //just install, import and use it only here.
+
+app.use(cors({origin:['http://localhost:8000/']}));
 
 
 // application routes

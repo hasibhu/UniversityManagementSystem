@@ -19,7 +19,8 @@ const getSingleFaculty = catchAsync(async (req, res) => {
 
 const getAllFaculties = catchAsync(async (req, res) => {
 
-  console.log('text', req.user);
+  // console.log('text', req.user);
+  console.log(req.cookies) //will show the refreshToken in the terminal
   const result = await FacultyServices.getAllFacultiesFromDB(req.query);
 
   sendResponse(res, {

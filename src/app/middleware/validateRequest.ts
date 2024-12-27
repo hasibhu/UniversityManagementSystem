@@ -12,7 +12,8 @@ export const validateRequest = (schema: AnyZodObject) => {
         // Validate the request body
   
          await schema.parseAsync({
-            body: req.body,
+           body: req.body,
+           cookies: req.cookies,
        });
         
         next(); // Proceed to the next middleware/controller

@@ -33,7 +33,8 @@ export interface TUser {
 export interface UserModel extends Model<TUser>{
   isUserExistByCustomId(id: string): Promise<TUser>;
   isUserAccessibleById(id: string): Promise<TUser>;
-  isPasswordMatched(plainTextPassword:string, hashedPassword :string): Promise<boolean>
+  isPasswordMatched(plainTextPassword: string, hashedPassword: string): Promise<boolean>;
+  isJWTIssuedBeforeChange(passwordChangedTimeStamp: Date, jwtIssuedTimeStamp:number ): boolean
 } 
 
 

@@ -6,7 +6,7 @@ import { FacultyControllers } from './faculty.controller';
 import { validateRequest } from '../../middleware/validateRequest';
 import { createFacultyValidationSchema, updateFacultyValidationSchema } from './faculty.validation';
 import { UserControllers } from '../user/user.controller';
-import { authValidationMidddleware } from '../../middleware/auth.validationMiddleware';
+import { authValidationMidddleware } from '../../middleware/auth';
 
 
 const router = express.Router();

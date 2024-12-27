@@ -6,7 +6,7 @@ import { validateRequest } from '../../middleware/validateRequest';
 import express from 'express';
 import { createFacultyValidationSchema } from '../faculty/faculty.validation';
 import { createAdminValidationSchema } from '../Admin/admin.validation';
-import { authValidationMidddleware } from '../../middleware/auth.validationMiddleware';
+import { authValidationMidddleware } from '../../middleware/auth';
 import { USER_ROLE } from './user.constants';
 
 

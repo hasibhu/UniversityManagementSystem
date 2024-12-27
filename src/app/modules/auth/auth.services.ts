@@ -129,7 +129,7 @@ const changePasswordService = async(user:JwtPayload, payload:{oldPassword: strin
         { id: user.userId, role: user.role },
         {
           password: newHashedPassword,
-            needsPasswordChange: false,
+          needsPasswordChange: false,
           passwordChangedAt: new Date()
         }
 
@@ -139,9 +139,69 @@ const changePasswordService = async(user:JwtPayload, payload:{oldPassword: strin
     return null;
 }
 
+
+
+const refreshToken = async(token: string) => {
+
+         
+
+      const decoded = jwt.verify(token, config.jwt_refresh_token as string)as JwtPayload  //decode information is coming from login service by jwt.sign() function
+             
+              
+      //   console.log('from authMiddleware',decoded);
+      const { userId, iat  } = decoded;
+      
+
+      // check if the user exists 
+      const user = await User.isUserExistByCustomId(userId)
+      if (!user) {
+        throw new AppError(httpStatus.NOT_FOUND,"User not found");
+      }
+
+      // check user status/ block /delete
+      await User.isUserAccessibleById(userId);
+      
+
+      // check password change date and token generated date 
+      if (user.passwordChangedAt && User.isJWTIssuedBeforeChange(user.passwordChangedAt, iat as number)) {
+        throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized.')
+      }
+    
+    
+    
+    const jwtPayload = {
+        userId: user?.id,
+        role: user?.role
+    }
+
+
+
+    const accessToken = createToken(
+        jwtPayload,
+        config.jwt_access_token as string,
+        config.jwt_accress_expiresIn as string
+    )
+
+
+    // const refreshToken = createToken(
+    //     jwtPayload,
+    //     config.jwt_refresh_token as string,
+    //     config.jwt_refresh_expiresIn as string,
+        
+    // )
+
+    return {
+        accessToken
+    }
+}
+
+
+
+
 export const AuthServices = {
     loginUserService,
-    changePasswordService
+    changePasswordService,
+    refreshToken
 
 
 }
