@@ -219,14 +219,14 @@ const forgetPassword = async(userId: string) => {
 
 
 
-    const accessToken = createToken(
+    const resetToken = createToken(
         jwtPayload,
         config.jwt_access_token as string,
         '10m'
     )
 
 
-     const resetUrlLink = `http://localhost:8000?id=${user.id}token=${accessToken}`
+     const resetUrlLink = `http://localhost:8000?id=${user.id}&token=${resetToken}`
     
     console.log(resetUrlLink);
 

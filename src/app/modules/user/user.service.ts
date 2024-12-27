@@ -22,6 +22,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
 
   //set student role
   userData.role = 'student';
+  userData.email = payload.email;
 
   // find academic semester info
   const admissionSemester = await AcademicSemesterModel.findById(
@@ -49,8 +50,6 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create user!')
     }
 
-
-
     //create a student
     if (Object.keys(newUser).length) {
       
@@ -70,8 +69,6 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
       
       return newStudent;
 
-
-
     }
     
   } catch (error) {
@@ -84,7 +81,6 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
 
 
 // create faculty 
-
 const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   // create a user object
   const userData: Partial<TUser> = {};
@@ -94,6 +90,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
 
   //set student role
   userData.role = 'faculty';
+  userData.email = payload.email;
 
   // find academic department info
   const academicDepartment = await AcademicDepartmentModel.findById(
@@ -155,6 +152,7 @@ const createAdminIntoDB = async (password: string, payload: TFaculty) => {
 
   //set student role
   userData.role = 'admin';
+  userData.email = payload.email;
 
   const session = await mongoose.startSession();
 
