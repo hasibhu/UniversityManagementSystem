@@ -27,4 +27,10 @@ router.post('/refresh-token',
     AuthControllers.refreshToken)
 
 
+router.post('/forget-password',
+    // authValidationMidddleware(USER_ROLE.admin, USER_ROLE.faculty, USER_ROLE.student ),
+    validateRequest(AuthValidation.forgetPasswordValidation),
+    AuthControllers.forgetPassword)
+
+
 export const AuthRoutes = router;

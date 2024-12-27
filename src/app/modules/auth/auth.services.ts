@@ -198,10 +198,47 @@ const refreshToken = async(token: string) => {
 
 
 
+const forgetPassword = async(userId: string) => {
+    
+
+     // check if the user exists 
+      const user = await User.isUserExistByCustomId(userId)
+      if (!user) {
+        throw new AppError(httpStatus.NOT_FOUND,"User not found");
+      }
+
+      // check user status/ block /delete
+      await User.isUserAccessibleById(userId);
+      
+    
+    
+    const jwtPayload = {
+        userId: user?.id,
+        role: user?.role
+    }
+
+
+
+    const accessToken = createToken(
+        jwtPayload,
+        config.jwt_access_token as string,
+        '10m'
+    )
+
+
+     const resetUrlLink = `http://localhost:8000?id=${user.id}token=${accessToken}`
+    
+    console.log(resetUrlLink);
+
+    // return resetUrlLink
+}
+
+
 export const AuthServices = {
     loginUserService,
     changePasswordService,
-    refreshToken
+    refreshToken,
+    forgetPassword
 
 
 }
