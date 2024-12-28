@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { UserServices } from './user.service';
 import catchAsync from '../../utils/catchAsysnc';
+import AppError from '../../errors/AppError';
 
 
 // RequestHandler of express will wrok for type declaration of the res, req, and next. 
@@ -59,9 +60,29 @@ const createAdmin = catchAsync(async (req, res) => {
 });
 
 
+
+const getMe = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+
+
+  if (!token) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Token is not found.' )
+  }
+  const result = await UserServices.getMeFromDB(token);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student data has been retrieved succesfully',
+    data: result,
+  });
+});
+
+
 export const UserControllers = {
   createStudent,
   createFaculty,
-  createAdmin
+  createAdmin,
+  getMe
 };
 

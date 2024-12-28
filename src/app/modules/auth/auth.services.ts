@@ -6,7 +6,7 @@ import { TLoginUser } from "./auth.interface";
 import jwt, { JwtPayload }  from "jsonwebtoken";
 import config from "../../config";
 import bcrypt from 'bcrypt'
-import { createToken } from "./auth.utils";
+import { createToken, verifyToken } from "./auth.utils";
 import { sendEmail } from "../../utils/sendEmail";
 
 const loginUserService = async (payload: TLoginUser) => {
@@ -146,8 +146,7 @@ const refreshToken = async(token: string) => {
 
          
 
-      const decoded = jwt.verify(token, config.jwt_refresh_token as string)as JwtPayload  //decode information is coming from login service by jwt.sign() function
-             
+     const decoded = verifyToken(token, config.jwt_refresh_token as string )    
               
       //   console.log('from authMiddleware',decoded);
       const { userId, iat  } = decoded;

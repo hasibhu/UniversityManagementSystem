@@ -33,8 +33,16 @@ router.post(
 router.post(
   '/create-admin',
   validateRequest(createAdminValidationSchema),
-  authValidationMidddleware(USER_ROLE.admin),
+  // authValidationMidddleware(USER_ROLE.admin),
   UserControllers.createAdmin,
+);    
+
+
+
+router.get(
+  '/getMe',
+  authValidationMidddleware('student', 'faculty', 'admin'),
+  UserControllers.getMe,
 );    
 
 export const UserRoutes = router;
