@@ -9,12 +9,15 @@ import AppError from '../../errors/AppError';
 
 const createStudent  = catchAsync( async (req, res) => {
 
- 
+  // console.log('create student controller file ', req.file);
+  // console.log('body data', req.body);
+
     const { password, student: studentData } = req.body;
 
     // const zodParsedData = studentValidationSchema.parse(studentData);
 
-    const result = await UserServices.createStudentIntoDB(
+  const result = await UserServices.createStudentIntoDB(
+      req.file,
       password,
       studentData,
     );

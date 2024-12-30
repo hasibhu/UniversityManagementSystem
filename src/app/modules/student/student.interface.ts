@@ -44,6 +44,10 @@ export type TStudent = {
 };
 
 
+export interface ImageData {
+  secure_url: string;
+  // Add other fields if needed
+}
 
 //for creating static
 
